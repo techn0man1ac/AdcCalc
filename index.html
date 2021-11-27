@@ -121,12 +121,15 @@
     hr {
       clear: right;
       /* картинки прижымаются к правому краю странички*/
+	.responsive {
+		width: 30%;
+		height: auto;
     }
   </style>
 
   <body>
     <form class="formula">
-      <img height="215" src="Imgs/ResistorDivider.gif" width="187" />
+      <img height="215" src="Imgs/ResistorDivider.gif" width="187" alt="Resistor Divider Picture" class="responsive"/>
       <div>
         <label for="u_val">Uin:</label>
         <input id="u_val" value="2.50" />
@@ -205,8 +208,6 @@
         <input id="lsb_rez_val" type="text" /> LSB/V
       </div>
       <br />
-      <img id="sheme_img" src="Imgs/Chip.gif" />
-
       <label>**</label>
       <br />
       <label>8 bit - 0-255;</label>
@@ -221,6 +222,8 @@
       <br />
       <label>13 bit - 0-8191.</label>
       <br />
+	  <img id="sheme_img" src="Imgs/Chip.gif" alt="Resistor Divider Picture" class="responsive"/>
+	  <br />
     </form>
   </body>
   </html>
