@@ -1,0 +1,1 @@
+# АЦП Калькулятор / ADC Calculator by Techn0man1ac

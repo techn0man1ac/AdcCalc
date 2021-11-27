@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <title> ADC Calculator by Techn0man1ac </title>
+  <h3> АЦП Калькулятор / ADC Calculator by Techn0man1ac </h3>
+
+  <script type="text/javascript">
+    window.onload = function() {
+      var resVal = document.getElementById("res_val");
+
+      function calculate(e) {
+        var Custom_U = parseFloat(document.getElementById("cust_u").value);
+        var divide_Res1 = document.getElementById("divide_R1").options[document.getElementById("divide_R1").selectedIndex].value;
+        var divide_Res2 = document.getElementById("divide_R2").options[document.getElementById("divide_R2").selectedIndex].value;
+        var U = parseFloat(document.getElementById("u_val").value);
+        var R1 = parseFloat(document.getElementById("r1_val").value) * divide_Res1;
+        var R2 = parseFloat(document.getElementById("r2_val").value) * divide_Res2;
+        /*
+        alert(R1);
+        alert(R2);
+        */
+        var mic_volt;
+        var adc;
+        var uout = ((U * R2) / (R1 + R2)).toFixed(3); // формула делителя
+        var lsb;
+        var idiv = (U / (R1 + R2)) * 1000; // I = U/R и переводим в милиАмперы
+        //alert(idiv);
+        if (document.getElementById("v1").checked) {
+          mic_volt = 5.00;
+        }
+        if (document.getElementById("v2").checked) {
+          mic_volt = 3.30;
+        }
+        if (document.getElementById("v3").checked) {
+          mic_volt = 2.56;
+        }
+        if (document.getElementById("v4").checked) {
+          mic_volt = 1.10;
+        }
+        if (document.getElementById("v5").checked) { // ввели вручную
+          mic_volt = Custom_U;
+        }
+        if (document.getElementById("adc6").checked) {
+          adc = 8191;
+        }
+        if (document.getElementById("adc5").checked) {
+          adc = 4095;
+        }
+        if (document.getElementById("adc4").checked) {
+          adc = 2047;
+        }
+        if (document.getElementById("adc3").checked) {
+          adc = 1023;
+        }
+        if (document.getElementById("adc2").checked) {
+          adc = 511;
+        }
+        if (document.getElementById("adc1").checked) {
+          adc = 255;
+        }
+        var convert = uout / (mic_volt / adc); // самое мясо
+        adc = convert;
+        if (adc < 0) {
+          adc = 0;
+          document.getElementById("sheme_img").src = "Imgs/Chip.gif"
+        }
+        if (adc > 8191 && document.getElementById("adc6").checked) {
+          adc = 8191;
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+        } else if (adc <= 8191) {
+          document.getElementById("sheme_img").src = "Imgs/Chip.gif";
+        }
+        if (adc > 4095 && document.getElementById("adc5").checked) {
+          adc = 4095;
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+        } else if (adc <= 4095) {
+          document.getElementById("sheme_img").src = "Imgs/Chip.gif";
+        }
+        if (adc > 2047 && document.getElementById("adc4").checked) {
+          adc = 2047;
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+        } else if (adc <= 2047) {
+          document.getElementById("sheme_img").src = "Imgs/Chip.gif";
+        }
+        if (adc > 1023 && document.getElementById("adc3").checked) {
+          adc = 1023;
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+        } else if (adc <= 1023) {
+          document.getElementById("sheme_img").src = "Imgs/Chip.gif";
+        }
+        if (adc > 511 && document.getElementById("adc2").checked) {
+          adc = 511;
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+        } else if (adc <= 511) {
+          document.getElementById("sheme_img").src = "Imgs/Chip.gif";
+        }
+        if (adc > 255 && document.getElementById("adc1").checked) {
+          adc = 255;
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+        } else if (adc <= 255) {
+          document.getElementById("sheme_img").src = "Imgs/Chip.gif";
+        }
+        lsb = U / adc;
+        resVal.innerText = uout; // выводим  Uout
+        document.getElementById("adc_rez_val").value = parseInt(adc); // adc.toFixed(0); // тут мы получаем целое число
+        document.getElementById("lsb_rez_val").value = lsb.toFixed(3);
+        document.getElementById("idiv_rez_val").innerText = idiv.toFixed(2);
+        e.preventDefault();
+      }
+      document.getElementById("getRes").addEventListener("click", calculate);
+    }
+  </script>
+
+  <style type="text/css">
+    img {
+      float: right;
+      /* картинки будут справа*/
+    }
+    
+    hr {
+      clear: right;
+      /* картинки прижымаются к правому краю странички*/
+    }
+  </style>
+
+  <body>
+    <form class="formula">
+      <img height="215" src="Imgs/ResistorDivider.gif" width="187" />
+      <div>
+        <label for="u_val">Uin:</label>
+        <input id="u_val" value="2.50" />
+      </div>
+      <div>
+        <label for="r1_val">R1:</label>
+        <input id="r1_val" type="text" value="0.00" />
+        <select id="divide_R1">
+          <option value="1">Ohm</option>
+          <option value="1000">KOhm</option>
+          <option value="1000000">MOhm</option>
+        </select>
+        <label> *</label>
+      </div>
+      <div>
+        <label for="r2_val">R2:</label>
+        <input id="r2_val" type="text" value="1.00" />
+        <select id="divide_R2">
+          <option value="1">Ohm</option>
+          <option value="1000">KOhm</option>
+          <option value="1000000">MOhm</option>
+        </select>
+      </div>
+      <div id="res">
+        <br />
+        <button id="getRes">Calculate</button>
+        <br />
+        <br /> Uout = <span id="res_val"></span> V
+        <br /> Idiv = <span id="idiv_rez_val"></span> mA
+      </div>
+      <br />
+      <br />
+      <label>* If R1=0, R2=1 </label>
+      <br />
+      <label>voltage divider is off. </label>
+      <br />
+      <hr />
+
+      <!-- ширина гор. лин. 100% блока -->
+      <br />
+      <div class="volts">
+        <input checked="checked" id="v1" name="volt" type="radio" />
+        <label for="v1">5.0V</label>
+        <input id="v2" name="volt" type="radio" />
+        <label for="v2">3.30V</label>
+        <input id="v3" name="volt" type="radio" />
+        <label for="v3">2.56V</label>
+        <input id="v4" name="volt" type="radio" />
+        <label for="v4">1.10V</label>
+        <input id="v5" name="volt" type="radio" />
+        <input enabled="" id="cust_u" type="text" value="5.01" /> V
+      </div>
+      <br />
+      <div class="adc">
+        <input id="adc1" name="adc" type="radio" />
+        <label for="adc1">8 bit</label>
+        <input id="adc2" name="adc" type="radio" />
+        <label for="adc2">9 bit</label>
+        <input checked="checked" id="adc3" name="adc" type="radio" />
+        <label for="adc3">10 bit</label>
+        <input id="adc4" name="adc" type="radio" />
+        <label for="adc4">11 bit</label>
+        <input id="adc5" name="adc" type="radio" />
+        <label for="adc5">12 bit</label>
+        <input id="adc6" name="adc" type="radio" />
+        <label for="adc6">13 bit **</label>
+      </div>
+      <br />
+
+      <div class="adc_res">
+        <label>ADC =</label>
+        <input id="adc_rez_val" type="text" /> LSB
+      </div>
+      <div class="lsb_res">
+        <label>1 LSB =</label>
+        <input id="lsb_rez_val" type="text" /> LSB/V
+      </div>
+      <br />
+      <img id="sheme_img" src="Imgs/Chip.gif" />
+
+      <label>**</label>
+      <br />
+      <label>8 bit - 0-255;</label>
+      <br />
+      <label>9 bit - 0-511;</label>
+      <br />
+      <label>10 bit - 0-1023;</label>
+      <br />
+      <label>11 bit - 0-2047;</label>
+      <br />
+      <label>12 bit - 0-4095;</label>
+      <br />
+      <label>13 bit - 0-8191.</label>
+      <br />
+    </form>
+  </body>
+  </html>
