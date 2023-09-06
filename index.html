@@ -23,9 +23,9 @@
         */
         var mic_volt;
         var adc;
-        var uout = ((U * R2) / (R1 + R2)).toFixed(3); // формула делителя
+        var uout = ((U * R2) / (R1 + R2)).toFixed(3); // divider formula
         var lsb;
-        var idiv = (U / (R1 + R2)) * 1000; // I = U/R и переводим в милиАмперы
+        var idiv = (U / (R1 + R2)) * 1000; // I = U/R convert to mA
         //alert(idiv);
         if (document.getElementById("v1").checked) {
           mic_volt = 5.00;
@@ -39,7 +39,7 @@
         if (document.getElementById("v4").checked) {
           mic_volt = 1.10;
         }
-        if (document.getElementById("v5").checked) { // ввели вручную
+        if (document.getElementById("v5").checked) { // set manual
           mic_volt = Custom_U;
         }
         if (document.getElementById("adc6").checked) {
@@ -60,7 +60,7 @@
         if (document.getElementById("adc1").checked) {
           adc = 255;
         }
-        var convert = uout / (mic_volt / adc); // самое мясо
+        var convert = uout / (mic_volt / adc); // meet
         adc = convert;
         if (adc < 0) {
           adc = 0;
@@ -68,43 +68,43 @@
         }
         if (adc > 8191 && document.getElementById("adc6").checked) {
           adc = 8191;
-          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Its burn
         } else if (adc <= 8191) {
           document.getElementById("sheme_img").src = "Imgs/Chip.gif";
         }
         if (adc > 4095 && document.getElementById("adc5").checked) {
           adc = 4095;
-          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; 
         } else if (adc <= 4095) {
           document.getElementById("sheme_img").src = "Imgs/Chip.gif";
         }
         if (adc > 2047 && document.getElementById("adc4").checked) {
           adc = 2047;
-          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; 
         } else if (adc <= 2047) {
           document.getElementById("sheme_img").src = "Imgs/Chip.gif";
         }
         if (adc > 1023 && document.getElementById("adc3").checked) {
           adc = 1023;
-          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; 
         } else if (adc <= 1023) {
           document.getElementById("sheme_img").src = "Imgs/Chip.gif";
         }
         if (adc > 511 && document.getElementById("adc2").checked) {
           adc = 511;
-          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; 
         } else if (adc <= 511) {
           document.getElementById("sheme_img").src = "Imgs/Chip.gif";
         }
         if (adc > 255 && document.getElementById("adc1").checked) {
           adc = 255;
-          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; // Ааа сгорит
+          document.getElementById("sheme_img").src = "Imgs/ChipBoom.gif"; 
         } else if (adc <= 255) {
           document.getElementById("sheme_img").src = "Imgs/Chip.gif";
         }
         lsb = U / adc;
         resVal.innerText = uout; // выводим  Uout
-        document.getElementById("adc_rez_val").value = parseInt(adc); // adc.toFixed(0); // тут мы получаем целое число
+        document.getElementById("adc_rez_val").value = parseInt(adc); // adc.toFixed(0); // here we get an integer
         document.getElementById("lsb_rez_val").value = lsb.toFixed(3);
         document.getElementById("idiv_rez_val").innerText = idiv.toFixed(2);
         e.preventDefault();
@@ -154,7 +154,7 @@
       <br />
       <hr />
 
-      <!-- ширина гор. лин. 100% блока -->
+      <!-- the width of the horizontal line is 100% of the block -->
       <br />
       <div class="volts">
         <input checked="checked" id="v1" name="volt" type="radio" />
